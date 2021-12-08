@@ -103,10 +103,18 @@ public final class ExoPlayerView extends FrameLayout {
     }
 
     private void updateSurfaceView() {
-        View view = useTextureView ? new TextureView(context) : new SurfaceView(context);
-        view.setLayoutParams(layoutParams);
+        if (useTextureView) {
+            TextureView view  = new TextureView(context);
+            view.setOpaque(false);
+            view.setLayoutParams(layoutParams);
+            surfaceView = view;
+        }
+        else {
+            SurfaceView view  = new SurfaceView(context);
+            view.setLayoutParams(layoutParams);
+            surfaceView = view;
+        }
 
-        surfaceView = view;
         if (layout.getChildAt(0) != null) {
             layout.removeViewAt(0);
         }
